@@ -10,7 +10,10 @@ class FirstScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: Icon(Icons.menu, color: Colors.deepOrange),
-        title: Text("First Screen", style: TextStyle(color: Colors.deepOrange)),
+        title: Text(
+          "My First Screen",
+          style: TextStyle(color: Colors.deepOrange),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
