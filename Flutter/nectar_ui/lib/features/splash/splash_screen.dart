@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nectar_ui/core/constants/app_assets.dart';
 import 'package:nectar_ui/core/extentions/navigation.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
-import 'package:nectar_ui/features/auth/page/login_screen.dart';
+import 'package:nectar_ui/features/main/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // delay with 3 seconds then push to login screen
     Future.delayed(Duration(seconds: 3), () {
-      pushWithReplacement(context, const LoginScreen());
+      pushWithReplacement(context, const MainScreen());
     });
     super.initState();
   }

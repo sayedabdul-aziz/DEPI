@@ -4,7 +4,9 @@ import 'package:nectar_ui/core/constants/app_assets.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
 
 class AuthHeader extends StatelessWidget {
-  const AuthHeader({super.key});
+  const AuthHeader({super.key, required this.title, required this.subTitle});
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AuthHeader extends StatelessWidget {
         ),
         SizedBox(height: 40),
         Text(
-          'Login',
+          title,
           style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w600,
@@ -34,7 +36,7 @@ class AuthHeader extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          'Enter your emails and password',
+          subTitle,
           style: TextStyle(fontSize: 16, color: AppColors.greyColor),
         ),
       ],
