@@ -11,6 +11,8 @@ void main() {
   // Encapsulation
   // inheritance
 
+  print('Hello World');
+
   // OOP
 }
 
