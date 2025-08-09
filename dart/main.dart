@@ -12,6 +12,11 @@ void main() {
   // inheritance
 
   print('Hello World');
+  print('Hello World');
+  print('Hello World');
+  print('Hello World');
+  print('Hello World');
+  print('Hello World');
 
   // OOP
 }
