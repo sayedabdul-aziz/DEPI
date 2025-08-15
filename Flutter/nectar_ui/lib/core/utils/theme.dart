@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nectar_ui/core/constants/app_fonts.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
 
 class AppThemes {
-  static ThemeData lightTheme = ThemeData(
+  static ThemeData get lightTheme => ThemeData(
     scaffoldBackgroundColor: Colors.white,
+    fontFamily: AppFonts.poppins,
     appBarTheme: AppBarTheme(
       surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.white,

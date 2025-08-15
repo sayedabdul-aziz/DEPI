@@ -15,44 +15,44 @@ class ProductModel {
 List<ProductModel> products = [
   ProductModel(
     name: 'Burger',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
+    image: 'assets/images/categories/pngfuel 6.png',
     price: '9.99',
     quantity: '1',
   ),
-  ProductModel(
-    name: 'Pizza',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '12.99',
-    quantity: '1',
-  ),
-  ProductModel(
-    name: 'Taco',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '7.99',
-    quantity: '1',
-  ),
-  ProductModel(
-    name: 'Burger',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '9.99',
-    quantity: '1',
-  ),
-  ProductModel(
-    name: 'Pizza',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '12.99',
-    quantity: '1',
-  ),
-  ProductModel(
-    name: 'Taco',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '7.99',
-    quantity: '1',
-  ),
-  ProductModel(
-    name: 'Burger',
-    image: 'https://pics.clipartpng.com/Pear_Fruit_PNG_Clipart-242.png',
-    price: '9.99',
-    quantity: '1',
-  ),
+  // ProductModel(
+  //   name: 'Pizza',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '12.99',
+  //   quantity: '1',
+  // ),
+  // ProductModel(
+  //   name: 'Taco',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '7.99',
+  //   quantity: '1',
+  // ),
+  // ProductModel(
+  //   name: 'Burger1',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '9.99',
+  //   quantity: '1',
+  // ),
+  // ProductModel(
+  //   name: 'Pizza1',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '12.99',
+  //   quantity: '1',
+  // ),
+  // ProductModel(
+  //   name: 'Taco1',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '7.99',
+  //   quantity: '1',
+  // ),
+  // ProductModel(
+  //   name: 'Burger2',
+  //   image: 'assets/images/categories/pngfuel 6.png',
+  //   price: '9.99',
+  //   quantity: '1',
+  // ),
 ];

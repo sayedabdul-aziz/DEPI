@@ -7,7 +7,7 @@ import 'package:nectar_ui/core/extentions/navigation.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
 import 'package:nectar_ui/features/auth/page/register_screen.dart';
 import 'package:nectar_ui/features/auth/widgets/auth_header.dart';
-import 'package:nectar_ui/features/home/page/home_screen.dart';
+import 'package:nectar_ui/features/main/main_screen.dart';
 
 // Wrap Your Column With "Form" Widget
 // Create formKey as GlobalKey<FormState> and pass it to "Form" widget
@@ -92,9 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     MainButton(
                       text: 'Login',
                       onPressed: () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          pushWithReplacement(context, HomeScreen());
-                        }
+                        // if (formKey.currentState?.validate() ?? false) {
+                        pushWithReplacement(context, MainScreen());
+                        // }
                       },
                     ),
                     SizedBox(height: 10),
@@ -120,8 +120,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(color: AppColors.primaryColor),
                           ),
                           TextSpan(
-                            text: 'By continuing you agree to our ',
+                            text: 'By conte to our ',
                             style: TextStyle(color: AppColors.greyColor),
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                'Privacy Policy ',
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                            ),
                           ),
                         ],
                       ),

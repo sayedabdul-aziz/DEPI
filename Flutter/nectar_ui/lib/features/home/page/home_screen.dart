@@ -26,6 +26,23 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  fillColor: AppColors.greyColor.withValues(alpha: .2),
+                  filled: true,
+                  hintText: 'Search',
+                  prefixIcon: Icon(Icons.search, color: AppColors.primaryColor),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
               RecentOrdersBuilder(),
               SizedBox(height: 20),
               AllOrdersBuilder(),

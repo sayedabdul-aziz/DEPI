@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar_ui/core/constants/app_assets.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
+import 'package:nectar_ui/core/utils/text_styles.dart';
 
 class AuthHeader extends StatelessWidget {
   const AuthHeader({super.key, required this.title, required this.subTitle});
@@ -26,14 +27,7 @@ class AuthHeader extends StatelessWidget {
           ],
         ),
         SizedBox(height: 40),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkColor,
-          ),
-        ),
+        Text(title, style: TextStyles.getTitle()),
         SizedBox(height: 10),
         Text(
           subTitle,

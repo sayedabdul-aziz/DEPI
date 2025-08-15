@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar_ui/core/utils/app_colors.dart';
+import 'package:nectar_ui/core/utils/text_styles.dart';
 import 'package:nectar_ui/features/home/model/order_model.dart';
 import 'package:nectar_ui/features/home/widgets/recent_orders.dart';
 
@@ -13,15 +14,12 @@ class AllOrdersBuilder extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'All Orders',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+            Text('All Orders', style: TextStyles.getTitle()),
             TextButton(
               onPressed: () {},
               child: Text(
                 'See All',
-                style: TextStyle(
+                style: TextStyles.getSmall(
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w600,
                 ),
@@ -42,7 +40,7 @@ class AllOrdersBuilder extends StatelessWidget {
             var product = products[index];
             return RecentCardUi(model: product);
           },
-          itemCount: products.length,
+          itemCount: 1,
         ),
       ],
     );
