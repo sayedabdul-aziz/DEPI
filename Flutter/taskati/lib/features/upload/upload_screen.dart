@@ -5,7 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taskati/components/buttons/main_button.dart';
 import 'package:taskati/core/extentions/dialogs.dart';
+import 'package:taskati/core/extentions/navigation.dart';
+import 'package:taskati/core/services/local_helper.dart';
 import 'package:taskati/core/utils/colors.dart';
+import 'package:taskati/features/home/page/home_screen.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -25,7 +28,10 @@ class _UploadScreenState extends State<UploadScreen> {
           TextButton(
             onPressed: () {
               if (path != null && nameController.text.isNotEmpty) {
-                print('Done');
+                LocalHelper.cacheData(LocalHelper.kIsUpload, true);
+                LocalHelper.cacheData(LocalHelper.kName, nameController.text);
+                LocalHelper.cacheData(LocalHelper.kImage, path);
+                pushWithReplacement(context, HomeScreen());
               } else if (path != null && nameController.text.isEmpty) {
                 showErrorDialog(context, 'Please enter your name');
               } else if (path == null && nameController.text.isNotEmpty) {
@@ -52,7 +58,7 @@ class _UploadScreenState extends State<UploadScreen> {
                   radius: 80,
                   backgroundColor: AppColors.primaryColor,
                   backgroundImage: path != null
-                      ? FileImage(File(path ?? ''))
+                      ? FileImage(File(path ?? '')) as ImageProvider
                       : AssetImage('assets/images/user.png'),
                 ),
                 Gap(20),
