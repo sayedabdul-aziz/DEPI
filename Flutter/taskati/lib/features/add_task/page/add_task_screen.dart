@@ -2,37 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati/components/buttons/main_button.dart';
+import 'package:taskati/core/constants/task_colors.dart';
+import 'package:taskati/core/models/task_model.dart';
+import 'package:taskati/core/services/local_helper.dart';
 import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/features/add_task/widgets/time_field_selection.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({super.key});
+class AddEditTaskScreen extends StatefulWidget {
+  const AddEditTaskScreen({super.key, this.taskModel});
+
+  final TaskModel? taskModel;
 
   @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
+  State<AddEditTaskScreen> createState() => _AddEditTaskScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
+class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
-  var dateController = TextEditingController(
-    text: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-  );
-  var startTimeController = TextEditingController(
-    text: DateFormat("hh:mm a").format(DateTime.now()),
-  );
-  var endTimeController = TextEditingController(
-    text: DateFormat("hh:mm a").format(DateTime.now()),
-  );
+  var dateController = TextEditingController();
+  var startTimeController = TextEditingController();
+  var endTimeController = TextEditingController();
 
   int selectedColor = 0;
 
-  List<Color> colors = [
-    AppColors.primaryColor,
-    AppColors.orangeColor,
-    AppColors.redColor,
-  ];
+  var formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.taskModel?.title ?? '';
+    descriptionController.text = widget.taskModel?.description ?? '';
+    dateController.text =
+        widget.taskModel?.date ??
+        DateFormat("yyyy-MM-dd").format(DateTime.now());
+    startTimeController.text =
+        widget.taskModel?.startTime ??
+        DateFormat("hh:mm a").format(DateTime.now());
+    endTimeController.text =
+        widget.taskModel?.endTime ??
+        DateFormat("hh:mm a").format(DateTime.now());
+    selectedColor = widget.taskModel?.color ?? 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,42 +53,80 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: MainButton(height: 55, text: 'Create Task', onPressed: () {}),
+          child: MainButton(
+            height: 55,
+            text: widget.taskModel != null ? 'Update Task' : 'Create Task',
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                String id = '';
+                if (widget.taskModel != null) {
+                  id = widget.taskModel!.id;
+                } else {
+                  id = DateTime.now().millisecondsSinceEpoch.toString();
+                }
+                LocalHelper.cacheTask(
+                  id,
+                  TaskModel(
+                    id: id,
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    date: dateController.text,
+                    startTime: startTimeController.text,
+                    endTime: endTimeController.text,
+                    color: selectedColor,
+                    isCompleted: false,
+                  ),
+                );
+                Navigator.pop(context);
+              }
+            },
+          ),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Title',
-                style: TextStyles.getBody(fontWeight: FontWeight.w600),
-              ),
-              Gap(6),
-              TextFormField(
-                controller: titleController,
-                decoration: InputDecoration(hintText: 'Enter title'),
-              ),
-              Gap(12),
-              Text(
-                'Description',
-                style: TextStyles.getBody(fontWeight: FontWeight.w600),
-              ),
-              Gap(6),
-              TextFormField(
-                controller: descriptionController,
-                maxLines: 3,
-                decoration: InputDecoration(hintText: 'Enter description ...'),
-              ),
-              Gap(12),
-              dateSelection(),
-              Gap(12),
-              timeSelection(),
-              Gap(12),
-              colorSelection(),
-            ],
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Title',
+                  style: TextStyles.getBody(fontWeight: FontWeight.w600),
+                ),
+                Gap(6),
+                TextFormField(
+                  controller: titleController,
+                  decoration: InputDecoration(hintText: 'Enter title'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter title';
+                    }
+                    return null;
+                  },
+                ),
+                Gap(12),
+                Text(
+                  'Description',
+                  style: TextStyles.getBody(fontWeight: FontWeight.w600),
+                ),
+                Gap(6),
+                TextFormField(
+                  controller: descriptionController,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    hintText: 'Enter description ...',
+                  ),
+                ),
+                Gap(12),
+                dateSelection(),
+                Gap(12),
+                timeSelection(),
+                Gap(12),
+                colorSelection(),
+              ],
+            ),
           ),
         ),
       ),
@@ -91,7 +141,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         Gap(6),
         Row(
           spacing: 5,
-          children: List.generate(colors.length, (index) {
+          children: List.generate(taskColors.length, (index) {
             return GestureDetector(
               onTap: () {
                 setState(() {
@@ -99,7 +149,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 });
               },
               child: CircleAvatar(
-                backgroundColor: colors[index],
+                backgroundColor: taskColors[index],
                 child: (selectedColor == index)
                     ? Icon(Icons.check, color: Colors.white)
                     : null,

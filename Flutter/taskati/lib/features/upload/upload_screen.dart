@@ -93,13 +93,14 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   uploadImage(bool isCamera) async {
-    var picker = await ImagePicker().pickImage(
-      source: isCamera ? ImageSource.camera : ImageSource.gallery,
-    );
-    if (picker != null) {
-      setState(() {
-        path = picker.path;
-      });
-    }
+    await ImagePicker()
+        .pickImage(source: isCamera ? ImageSource.camera : ImageSource.gallery)
+        .then((picker) {
+          if (picker != null) {
+            setState(() {
+              path = picker.path;
+            });
+          }
+        });
   }
 }
