@@ -1,18 +1,18 @@
 import 'data.dart';
 
-class AuthResponse {
-  UserData? data;
+class SliderResponse {
+  Data? data;
   String? message;
   List<dynamic>? error;
   int? status;
 
-  AuthResponse({this.data, this.message, this.error, this.status});
+  SliderResponse({this.data, this.message, this.error, this.status});
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    return AuthResponse(
+  factory SliderResponse.fromJson(Map<String, dynamic> json) {
+    return SliderResponse(
       data: json['data'] == null
           ? null
-          : UserData.fromJson(json['data'] as Map<String, dynamic>),
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
       message: json['message'] as String?,
       error: json['error'] as List<dynamic>?,
       status: json['status'] as int?,

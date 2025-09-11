@@ -18,6 +18,13 @@ class AppThemes {
       onSurface: AppColors.darkColor,
     ),
 
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: AppColors.whiteColor,
+      showUnselectedLabels: false,
+      showSelectedLabels: false,
+    ),
+
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         padding: EdgeInsets.zero,
