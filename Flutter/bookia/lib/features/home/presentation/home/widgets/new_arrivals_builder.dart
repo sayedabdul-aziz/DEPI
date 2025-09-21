@@ -1,7 +1,7 @@
 import 'package:bookia/core/utils/colors.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/features/home/data/models/books_list_response/product.dart';
-import 'package:bookia/features/home/presentation/widgets/book_card.dart';
+import 'package:bookia/features/home/presentation/home/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -36,7 +36,7 @@ class NewArrivalsBuilder extends StatelessWidget {
               return Gap(10);
             },
             itemBuilder: (BuildContext context, int index) {
-              return BookCard(product: products[index]);
+              return BookCard(product: products[index], source: 'new');
             },
           ),
         ),

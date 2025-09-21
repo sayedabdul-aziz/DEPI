@@ -1,3 +1,4 @@
+import 'package:bookia/components/app_bar/app_bar_with_back.dart';
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/inputs/custom_text_field.dart';
 import 'package:bookia/core/constants/app_images.dart';
@@ -24,16 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        title: GestureDetector(
-          onTap: () {
-            pop(context);
-          },
-          child: Image.asset(AppImages.back, width: 41, height: 41),
-        ),
-      ),
+      appBar: AppBarWithBack(),
       body: BlocListener<AuthCubit, AuthState>(
         listener: _blocListener,
         child: _loginBody(),
@@ -47,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       pushAndRemoveUntil(context, Routes.main);
     } else if (state is AuthErrorState) {
       pop(context);
-      showErrorDialog(context, state.error);
+      showMyDialog(context, state.error);
     } else {
       showLoadingDialog(context);
     }

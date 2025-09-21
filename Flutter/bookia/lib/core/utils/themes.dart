@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 class AppThemes {
   static get lightTheme => ThemeData(
     scaffoldBackgroundColor: AppColors.whiteColor,
+
     appBarTheme: AppBarTheme(
+      centerTitle: true,
       backgroundColor: AppColors.whiteColor,
       foregroundColor: AppColors.primaryColor,
       surfaceTintColor: Colors.transparent,
-      titleTextStyle: TextStyles.getSize24(color: AppColors.primaryColor),
+      titleTextStyle: TextStyles.getSize24(
+        color: AppColors.darkColor,
+      ).copyWith(fontFamily: AppFonts.dMSerifDisplayFont),
     ),
     fontFamily: AppFonts.dMSerifDisplayFont,
     colorScheme: ColorScheme.fromSeed(
