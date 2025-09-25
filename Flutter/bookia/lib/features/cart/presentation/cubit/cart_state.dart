@@ -6,6 +6,10 @@ class CartLoadingState extends CartState {}
 
 class CartSuccessState extends CartState {}
 
+class CheckoutLoadingState extends CartState {}
+
+class CheckoutSuccessState extends CartState {}
+
 class CartErrorState extends CartState {
   final String message;
   CartErrorState({required this.message});

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/services/local/local_helper.dart';
 import 'package:bookia/core/utils/colors.dart';
 import 'package:bookia/features/cart/presentation/page/cart_screen.dart';
 import 'package:bookia/features/home/presentation/home/page/home_screen.dart';
@@ -7,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainAppScreen extends StatefulWidget {
-  const MainAppScreen({super.key});
+  const MainAppScreen({super.key, this.initialIndex});
+  final int? initialIndex;
 
   @override
   State<MainAppScreen> createState() => _MainAppScreenState();
@@ -15,6 +19,18 @@ class MainAppScreen extends StatefulWidget {
 
 class _MainAppScreenState extends State<MainAppScreen> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex ?? 0;
+  }
+
+  @override
+  void didUpdateWidget(covariant MainAppScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    currentIndex = widget.initialIndex ?? 0;
+  }
 
   List<Widget> screens = [
     HomeScreen(),
@@ -24,6 +40,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    log(LocalHelper.getUserData()?.token ?? "");
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: _buildNavBar(),

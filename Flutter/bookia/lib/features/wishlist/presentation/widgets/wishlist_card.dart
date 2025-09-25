@@ -11,7 +11,8 @@ class WishlistCard extends StatelessWidget {
   const WishlistCard({
     super.key,
     required this.product,
-    required this.onDelete, required this.onRefresh,
+    required this.onDelete,
+    required this.onRefresh,
   });
 
   final Product product;
@@ -27,7 +28,7 @@ class WishlistCard extends StatelessWidget {
           Routes.bookDetails,
           extra: {'product': product, 'source': 'wishlist'},
         ).then((v) {
-           onRefresh();
+          onRefresh();
         });
       },
       child: Container(

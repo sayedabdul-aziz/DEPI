@@ -4,6 +4,7 @@ import 'package:bookia/core/services/api/api_endpoints.dart';
 import 'package:bookia/core/services/api/dio_provider.dart';
 import 'package:bookia/core/services/local/local_helper.dart';
 import 'package:bookia/features/cart/data/models/cart_response/cart_response.dart';
+import 'package:bookia/features/cart/data/models/place_order_params.dart';
 
 class CartRepo {
   static Future<CartResponse?> addToCart({required int productId}) async {
@@ -97,6 +98,47 @@ class CartRepo {
     } on Exception catch (e) {
       log(e.toString());
       return null;
+    }
+  }
+
+  static Future<bool> checkout() async {
+    try {
+      var res = await DioProvider.get(
+        endpoint: ApiEndpoints.checkout,
+        headers: {
+          "Authorization": "Bearer ${LocalHelper.getUserData()?.token}",
+        },
+      );
+
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> placeOrder({required PlaceOrderParams params}) async {
+    try {
+      var res = await DioProvider.post(
+        endpoint: ApiEndpoints.placeOrder,
+        data: params.toJson(),
+        headers: {
+          "Authorization": "Bearer ${LocalHelper.getUserData()?.token}",
+        },
+      );
+
+      if (res.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }
