@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bookia/features/auth/data/models/response/auth_response/data.dart';
+import 'package:bookia/features/auth/data/models/response/auth_response/user.dart';
 import 'package:bookia/features/home/data/models/books_list_response/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,13 +8,14 @@ class LocalHelper {
   static late SharedPreferences pref;
 
   static String kUserData = 'user_data';
+  static String kToken = 'token';
   static String kWishlist = 'wishlist';
 
   static init() async {
     pref = await SharedPreferences.getInstance();
   }
 
-  static setUserData(UserData? userData) async {
+  static setUserData(User? userData) async {
     if (userData == null) return;
     //1) parse object to Json (Map)
     var objectJson = userData.toJson();
@@ -26,7 +27,7 @@ class LocalHelper {
     await pref.setString(kUserData, userDataString);
   }
 
-  static UserData? getUserData() {
+  static User? getUserData() {
     // 1) get string from shared preferences
     var source = pref.getString(kUserData);
     if (source == null) return null;
@@ -35,7 +36,16 @@ class LocalHelper {
     var jsonData = jsonDecode(source);
 
     // 3) parse Json to object
-    return UserData.fromJson(jsonData);
+    return User.fromJson(jsonData);
+  }
+
+  static setToken(String? token) async {
+    if (token == null) return;
+    await pref.setString(kToken, token);
+  }
+
+  static String? getToken() {
+    return pref.getString(kToken);
   }
 
   static setWishlist(List<Product>? books) async {

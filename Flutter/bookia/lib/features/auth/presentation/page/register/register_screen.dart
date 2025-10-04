@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _blocListener(BuildContext context, AuthState state) {
     if (state is AuthSuccessState) {
-      pushAndRemoveUntil(context, Routes.main);
+      pushToBase(context, Routes.main);
     } else if (state is AuthErrorState) {
       pop(context);
       showMyDialog(context, state.error);

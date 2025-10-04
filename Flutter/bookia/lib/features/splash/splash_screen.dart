@@ -1,4 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/extentions/extension.dart';
 import 'package:bookia/core/routes/navigation.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/local/local_helper.dart';
@@ -18,9 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      var userData = LocalHelper.getUserData();
+      var token = LocalHelper.getToken();
 
-      if (userData != null) {
+      if (token != null) {
         pushWithReplacement(context, Routes.main);
       } else {
         pushWithReplacement(context, Routes.welcome);
@@ -36,7 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppImages.logoSvg, width: 250),
+            SvgPicture.asset(
+              context.isArabic ? AppImages.homeSvg : AppImages.logoSvg,
+              width: 250,
+            ),
             Gap(10),
             Text('Order Your Book Now!', style: TextStyles.getSize18()),
           ],

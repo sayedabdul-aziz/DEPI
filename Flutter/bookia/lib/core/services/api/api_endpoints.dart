@@ -24,4 +24,8 @@ class ApiEndpoints {
 
   static const String checkout = '/checkout';
   static const String placeOrder = '/place-order';
+
+  // profile
+  static const String profile = '/profile';
+  static const String updateProfile = '/update-profile';
 }

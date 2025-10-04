@@ -20,7 +20,7 @@ class CartCubit extends Cubit<CartState> {
   int selectedGovernorateId = -1;
 
   initData() {
-    var userData = LocalHelper.getUserData()?.user;
+    var userData = LocalHelper.getUserData();
     nameController.text = userData?.name ?? '';
     emailController.text = userData?.email ?? '';
     addressController.text = userData?.address ?? '';

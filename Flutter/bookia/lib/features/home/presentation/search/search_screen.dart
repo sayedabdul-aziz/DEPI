@@ -22,9 +22,9 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
     _searchController.addListener(() {
       // Debounce the search query
-      _debouncer.run(
-        () => context.read<HomeCubit>().search(_searchController.text),
-      );
+      // _debouncer.run(
+      // () => context.read<HomeCubit>().search(_searchController.text),
+      // );
     });
   }
 

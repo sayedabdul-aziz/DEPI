@@ -13,9 +13,6 @@ class WishlistRepo {
       var res = await DioProvider.post(
         endpoint: ApiEndpoints.addToWishlist,
         data: {"product_id": productId},
-        headers: {
-          "Authorization": "Bearer ${LocalHelper.getUserData()?.token}",
-        },
       );
 
       if (res.statusCode == 200) {
@@ -38,9 +35,6 @@ class WishlistRepo {
       var res = await DioProvider.post(
         endpoint: ApiEndpoints.removeFromWishlist,
         data: {"product_id": productId},
-        headers: {
-          "Authorization": "Bearer ${LocalHelper.getUserData()?.token}",
-        },
       );
 
       if (res.statusCode == 200) {
@@ -58,12 +52,7 @@ class WishlistRepo {
 
   static Future<WishlistResponse?> getWishlistBooks() async {
     try {
-      var res = await DioProvider.get(
-        endpoint: ApiEndpoints.wishlist,
-        headers: {
-          "Authorization": "Bearer ${LocalHelper.getUserData()?.token}",
-        },
-      );
+      var res = await DioProvider.get(endpoint: ApiEndpoints.wishlist);
 
       if (res.statusCode == 200) {
         var data = WishlistResponse.fromJson(res.data);

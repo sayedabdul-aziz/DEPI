@@ -26,7 +26,7 @@ class PlaceOrderScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is CheckoutSuccessState) {
           pop(context);
-          pushAndRemoveUntil(context, Routes.main, extra: 0);
+          pushToBase(context, Routes.main, extra: 0);
         } else if (state is CheckoutLoadingState) {
           showLoadingDialog(context);
         } else if (state is CartErrorState) {
