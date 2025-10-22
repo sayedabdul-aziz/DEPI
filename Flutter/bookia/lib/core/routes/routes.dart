@@ -6,6 +6,8 @@ import 'package:bookia/features/cart/presentation/page/place_order_screen.dart';
 import 'package:bookia/features/home/data/models/books_list_response/product.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/details/page/book_details_screen.dart';
+import 'package:bookia/features/home/presentation/home/page/location_screen.dart';
+import 'package:bookia/features/home/presentation/home/page/web_view.dart';
 import 'package:bookia/features/main/presentation/page/main_screen.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:bookia/features/profile/presentation/page/edit_profile_screen.dart';
@@ -26,6 +28,8 @@ class Routes {
   static const String bookDetails = '/bookDetails';
   static const String placeOrder = '/placeOrder';
   static const String editProfile = '/editProfile';
+  static const String webPage = '/webPage';
+  static const String location = '/location';
 
   static final routes = GoRouter(
     navigatorKey: navigatorKey,
@@ -82,6 +86,8 @@ class Routes {
           );
         },
       ),
+      GoRoute(path: webPage, builder: (context, state) => WebViewScreen()),
+      GoRoute(path: location, builder: (context, state) => LocationScreen()),
     ],
   );
 }

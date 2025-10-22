@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:se7ety/components/buttons/main_button.dart';
 import 'package:se7ety/core/routes/navigation.dart';
 import 'package:se7ety/core/routes/routes.dart';
+import 'package:se7ety/core/services/local/shared_pref.dart';
 import 'package:se7ety/core/utils/colors.dart';
 import 'package:se7ety/core/utils/text_styles.dart';
 import 'package:se7ety/features/intro/onboarding/onboarding_model.dart';
@@ -28,6 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           if (currentPage != 2)
             TextButton(
               onPressed: () {
+                SharedPref.isOnBoardingShown(true);
                 pushWithReplacement(context, Routes.welcome);
               },
               child: Text(
@@ -102,6 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 45,
                       text: 'هيا بنا',
                       onPressed: () {
+                        SharedPref.isOnBoardingShown(true);
                         pushWithReplacement(context, Routes.welcome);
                       },
                     ),

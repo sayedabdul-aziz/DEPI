@@ -32,7 +32,7 @@ showLoadingDialog(BuildContext context) {
     builder: (context) => Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Lottie.asset(AppImages.loadingLottie)],
+        children: [Lottie.asset(AppImages.loadingLottie, width: 250)],
       ),
     ),
   );

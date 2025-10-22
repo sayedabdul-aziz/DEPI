@@ -13,6 +13,8 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.inputFormatters,
     this.onChanged,
+    this.keyboardType,
+    this.maxLines = 1,
   });
 
   final TextEditingController controller;
@@ -24,6 +26,8 @@ class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final Widget? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  final int maxLines;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -34,7 +38,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       controller: widget.controller,
+      maxLines: widget.maxLines,
       readOnly: widget.readOnly,
       onTap: widget.onTap,
       obscureText: widget.isPassword && isObscure,

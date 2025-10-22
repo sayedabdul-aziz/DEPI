@@ -3,21 +3,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPref {
   static late SharedPreferences pref;
 
-  static String kUserData = 'user_data';
-  static String kToken = 'token';
-  static String kWishlist = 'wishlist';
+  static String kIsOnBoardingShown = 'isOnBoardingShown';
+  static String kUserId = 'kUserId';
 
   static init() async {
     pref = await SharedPreferences.getInstance();
   }
 
-  static setToken(String? token) async {
-    if (token == null) return;
-    await pref.setString(kToken, token);
+  static isOnBoardingShown(bool isShown) async {
+    await setData(kIsOnBoardingShown, isShown);
   }
 
-  static String? getToken() {
-    return pref.getString(kToken);
+  static bool? getIsOnBoardingShown() {
+    return getData(kIsOnBoardingShown);
+  }
+
+  static setUserId(String uid) async {
+    await setData(kUserId, uid);
+  }
+
+  static String? getUserId() {
+    return getData(kUserId);
   }
 
   static setData(String key, dynamic value) {

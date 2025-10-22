@@ -1,3 +1,5 @@
+import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/colors.dart';
 import 'package:bookia/features/home/data/models/slider_response/slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -26,12 +28,31 @@ class _HomeSliderState extends State<HomeSlider> {
     return CarouselSlider.builder(
       itemCount: widget.sliders.length,
       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: widget.sliders[itemIndex].image ?? '',
-              fit: BoxFit.cover,
-              width: double.infinity,
+          GestureDetector(
+            onTap: () {
+              // launchUrl(Uri.parse('https://pub.dev/packages/url_launcher'));
+              // launchUrl(Uri.parse('https://wa.me/+20101010101010'));
+              // launchUrl(Uri.parse('tel:+20101010101010'));
+              // launchUrl(Uri.parse('sms:+20101010101010'));
+              // launchUrl(Uri.parse('geo:31.33,30.44'));
+              // launchUrl(
+              //   Uri.parse('https://maps.app.goo.gl/Bn1MnAxhahu4ooZUA?g_st=ac'),
+              // );
+              // launchUrl(
+              //   Uri.parse(
+              //     'mailto:zV6eF@example.com?subject="Flutter Developer"&body="Hello, I am Flutter Developer"',
+              //   ),
+              // );
+
+              pushTo(context, Routes.location);
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: widget.sliders[itemIndex].image ?? '',
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
           ),
       options: CarouselOptions(
