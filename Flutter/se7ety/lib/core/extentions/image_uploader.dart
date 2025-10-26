@@ -4,21 +4,17 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-Future<String?> uploadImageToCloudinary(
-  File imageFile,
-  String cloudName,
-  String uploadPreset,
-) async {
+Future<String?> uploadImageToCloudinary(File imageFile) async {
   // 1. Create the upload URL
   final url = Uri.parse(
-    'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
+    'https://api.cloudinary.com/v1_1/dup0vzih4/image/upload',
   );
 
   // 2. Create a new multipart request
   final request = http.MultipartRequest('POST', url);
 
   // 3. Add the upload preset
-  request.fields['upload_preset'] = uploadPreset;
+  request.fields['upload_preset'] = "se7ety";
 
   // 4. Add the file to the request
   request.files.add(

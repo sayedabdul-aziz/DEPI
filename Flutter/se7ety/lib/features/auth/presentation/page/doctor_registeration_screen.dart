@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:se7ety/components/buttons/main_button.dart';
 import 'package:se7ety/components/inputs/custom_text_field.dart';
+import 'package:se7ety/core/constants/app_images.dart';
 import 'package:se7ety/core/extentions/dialogs.dart';
 import 'package:se7ety/core/extentions/image_uploader.dart';
 import 'package:se7ety/core/routes/navigation.dart';
@@ -102,9 +103,10 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
                             // backgroundColor: AppColors.lightBg,
                             child: CircleAvatar(
                               radius: 60,
+                              backgroundColor: AppColors.whiteColor,
                               backgroundImage: (_imagePath != null)
                                   ? FileImage(File(_imagePath!))
-                                  : const AssetImage('assets/images/doc.png'),
+                                  : AssetImage(AppImages.emptyDocSvg),
                             ),
                           ),
                           GestureDetector(
@@ -250,13 +252,7 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
               onPressed: () async {
                 if (bloc.formKey.currentState!.validate()) {
                   if (file != null) {
-                    bloc.imageUrl =
-                        await uploadImageToCloudinary(
-                          file!,
-                          "dup0vzih4",
-                          "se7ety",
-                        ) ??
-                        '';
+                    bloc.imageUrl = await uploadImageToCloudinary(file!) ?? '';
 
                     bloc.add(DoctorRegistrationEvent());
                   } else {

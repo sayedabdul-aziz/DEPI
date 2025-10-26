@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (userType == '1') {
           pushToBase(context, Routes.mainPatient);
         } else {
-          // pushToBase(context, Routes.mainPatient);
+          pushToBase(context, Routes.welcome);
         }
       } else if (isOnBoardingShown) {
         pushWithReplacement(context, Routes.welcome);

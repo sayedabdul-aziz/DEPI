@@ -24,13 +24,18 @@ class AuthRepo {
       // use PhotoURL param as user type (Role)
       if (userType == UserTypeEnum.doctor) {
         user.updatePhotoURL('2');
-        var doctor = DoctorModel(name: name, email: email, uid: user.uid);
-        await FirestoreProvider.createDoctor(doctor);
+        var doctor = DoctorModel(
+          name: name,
+          email: email,
+          uid: user.uid,
+          rating: 3,
+        );
+        await FirestoreServices.createDoctor(doctor);
         return Right(userType);
       } else {
         user.updatePhotoURL('1');
         var patient = PatientModel(name: name, email: email, uid: user.uid);
-        await FirestoreProvider.createPatient(patient);
+        await FirestoreServices.createPatient(patient);
         return Right(userType);
       }
     } on FirebaseAuthException catch (e) {
@@ -81,7 +86,7 @@ class AuthRepo {
     DoctorModel model,
   ) async {
     try {
-      await FirestoreProvider.updateDoctor(model);
+      await FirestoreServices.updateDoctor(model);
       return const Right(true);
     } catch (e) {
       return Left('حدث خطأ ما');

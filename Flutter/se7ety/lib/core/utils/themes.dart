@@ -14,7 +14,7 @@ class AppThemes {
       surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyles.title.copyWith(
         fontFamily: AppFonts.cairoFamily,
-        color: AppColors.darkColor,
+        color: AppColors.whiteColor,
       ),
     ),
     fontFamily: AppFonts.cairoFamily,
