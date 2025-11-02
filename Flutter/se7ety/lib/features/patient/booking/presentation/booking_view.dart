@@ -2,11 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:se7ety/components/alert_dialog.dart';
 import 'package:se7ety/components/buttons/main_button.dart';
 import 'package:se7ety/components/cards/doctor_card.dart';
+import 'package:se7ety/core/extentions/dialogs.dart';
+import 'package:se7ety/core/routes/navigation.dart';
+import 'package:se7ety/core/routes/routes.dart';
+import 'package:se7ety/core/services/firebase/firestore_provider.dart';
 import 'package:se7ety/core/utils/colors.dart';
 import 'package:se7ety/core/utils/text_styles.dart';
 import 'package:se7ety/features/auth/data/models/doctor_model.dart';
+import 'package:se7ety/features/patient/booking/data/appointment_model.dart';
 import 'package:se7ety/features/patient/booking/data/available_appointments.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -223,17 +229,13 @@ class _BookingScreenState extends State<BookingScreen> {
         child: MainButton(
           text: 'تأكيد الحجز',
           onPressed: () {
-            // if (_formKey.currentState!.validate() && selectedIndex != -1) {
-            //   _createAppointment();
-            //   showAlertDialog(
-            //     context,
-            //     title: 'تم تسجيل الحجز !',
-            //     ok: 'اضغط للانتقال',
-            //     onTap: () {
-            //       pushAndRemoveUntil(context, const PatientNavBarWidget());
-            //     },
-            //   );
-            // }
+            if (_formKey.currentState!.validate()) {
+              if (selectedHour != -1) {
+                _createAppointment();
+              } else {
+                showMyDialog(context, 'من فضلك اختر وقت الحجز');
+              }
+            }
           },
         ),
       ),
@@ -241,43 +243,27 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   Future<void> _createAppointment() async {
-    // FirebaseFirestore.instance
-    //     .collection('appointments')
-    //     .doc('appointments')
-    //     .collection('pending')
-    //     .doc()
-    //     .set({
-    //       'patientID': user!.email,
-    //       'doctorID': widget.doctor.email,
-    //       'name': _nameController.text,
-    //       'phone': _phoneController.text,
-    //       'description': _descriptionController.text,
-    //       'doctor': widget.doctor.name,
-    //       'location': widget.doctor.address,
-    //       'date': DateTime.parse(
-    //         '${dateUTC!} ${booking_hour!}:00',
-    //       ), // yyyy-MM-dd HH:mm:ss
-    //       'isComplete': false,
-    //       'rating': null,
-    //     }, SetOptions(merge: true));
-
-    // FirebaseFirestore.instance
-    //     .collection('appointments')
-    //     .doc('appointments')
-    //     .collection('all')
-    //     .doc()
-    //     .set({
-    //       'patientID': user!.email,
-    //       'doctorID': widget.doctor.email,
-    //       'name': _nameController.text,
-    //       'phone': _phoneController.text,
-    //       'description': _descriptionController.text,
-    //       'doctor': widget.doctor.name,
-    //       'location': widget.doctor.address,
-    //       'date': DateTime.parse('${dateUTC!} ${booking_hour!}:00'),
-    //       'isComplete': false,
-    //       'rating': null,
-    //     }, SetOptions(merge: true));
+    var appointmentData = AppointmentModel(
+      patientID: FirebaseAuth.instance.currentUser?.uid ?? "",
+      doctorID: widget.doctor.uid ?? '',
+      name: _nameController.text,
+      doctorName: widget.doctor.name ?? '',
+      phone: _phoneController.text,
+      description: _descriptionController.text,
+      location: widget.doctor.address ?? '',
+      date: DateTime.parse('${_dateController.text} ${booking_hour!}:00'),
+      isComplete: false,
+    );
+    await FirestoreServices.createAppointment(appointmentData).then((_) {
+      showAlertDialog(
+        context,
+        title: 'تم تسجيل الحجز !',
+        ok: 'اضغط للانتقال',
+        onTap: () {
+          pushToBase(context, Routes.mainPatient);
+        },
+      );
+    });
   }
 
   Future<void> selectDate(BuildContext context) async {

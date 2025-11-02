@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:se7ety/components/buttons/main_button.dart';
 import 'package:se7ety/core/extentions/app_regex.dart';
 import 'package:se7ety/core/extentions/dialogs.dart';
@@ -46,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             pop(context);
             if (state.userType == UserTypeEnum.doctor) {
               //
-            } else{
+            } else {
               pushToBase(context, Routes.mainPatient);
             }
           } else if (state is AuthErrorState) {
@@ -134,6 +136,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       text: "تسجيل الدخول",
                     ),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            color: AppColors.greyColor,
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            'او',
+                            style: TextStyles.body.copyWith(
+                              color: AppColors.darkColor,
+                            ),
+                          ),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: AppColors.greyColor,
+                            thickness: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            signInWithGoogle().then((value) {
+                              log(value.user?.email.toString() ?? '');
+                            });
+                          },
+                          child: const Text('Google'),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Row(
@@ -172,11 +213,25 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
 
-class BaseResponse{
-  bool? status;
-  String? message;
-  List<String>? errors;
-  dynamic data;
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    await GoogleSignIn.instance.initialize(
+      serverClientId:
+          "768470228155-o0f6i2qtdimh027j5nodcmcqshqbv0vf.apps.googleusercontent.com",
+    );
+
+    final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+        .authenticate(scopeHint: ['email']);
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 }
