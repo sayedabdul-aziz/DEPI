@@ -7,8 +7,9 @@ import 'package:se7ety/core/services/local/shared_pref.dart';
 import 'package:se7ety/core/shared/bloc_observer.dart';
 import 'package:se7ety/core/utils/themes.dart';
 import 'package:se7ety/firebase_options.dart';
+import 'package:se7ety/flavor_config.dart';
 
-Future<void> main() async {
+Future<void> mainCommon(FlavorEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
